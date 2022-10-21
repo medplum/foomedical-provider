@@ -469,19 +469,10 @@ function ClinicalNoteLabel({ note }: { note: DocumentReference }): JSX.Element {
 }
 
 function ClinicalNotePanel({ note }: { note: DocumentReference }): JSX.Element {
-  const [content, setContent] = useState<string>(
-    'Labore et dolore magna aliqua. Orci phasellus egestas tellus rutrum tellus pellentesque eu.'
-  );
-  const medplum = useMedplum();
-  useEffect(() => {
-    const url = note.content?.[0]?.attachment?.url;
-    url &&
-      medplum
-        .download(url)
-        .then((blob) => blob.text())
-        .then(setContent);
-  }, [medplum, note]);
-  return <>{content}</>;
+  const [content, setContent] = useState<string>('');
+  const url = note.content?.[0]?.attachment?.url;
+
+  return <iframe frameBorder={0} style={{ width: '100%' }} src={url} seamless={true} />;
 }
 
 function resolveTab(input: string): string {
