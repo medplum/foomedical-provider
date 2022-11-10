@@ -1,4 +1,5 @@
 import { Center, Loader } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import {
   DEFAULT_SEARCH_COUNT,
   Filter,
@@ -12,7 +13,6 @@ import { ResourceType, UserConfiguration } from '@medplum/fhirtypes';
 import { MemoizedSearchControl, useMedplum } from '@medplum/react';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 export function ResourceSearchPage(): JSX.Element {
   const medplum = useMedplum();
@@ -72,7 +72,7 @@ export function ResourceSearchPage(): JSX.Element {
           .then((blob) => {
             window.open(window.URL.createObjectURL(blob), '_blank');
           })
-          .catch((err) => toast.error(normalizeErrorString(err)));
+          .catch((err) => showNotification({ color: 'red', message: normalizeErrorString(err) }));
       }}
       onDelete={(ids: string[]) => {
         if (window.confirm('Are you sure you want to delete these resources?')) {
@@ -89,7 +89,7 @@ export function ResourceSearchPage(): JSX.Element {
               })),
             })
             .then(() => setSearch({ ...search }))
-            .catch((err) => toast.error(normalizeErrorString(err)));
+            .catch((err) => showNotification({ color: 'red', message: normalizeErrorString(err) }));
         }
       }}
       onBulk={(ids: string[]) => {

@@ -1,14 +1,11 @@
+import { ScrollArea, Tabs } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { normalizeErrorString } from '@medplum/core';
 import { PlanDefinition } from '@medplum/fhirtypes';
-import { Document, PlanDefinitionBuilder, ResourceAvatar, ResourceTable, useMedplum } from '@medplum/react';
+import { Document, PlanDefinitionBuilder, ResourceTable, useMedplum } from '@medplum/react';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { PlanDefinitionApplyForm } from './PlanDefinitionApplyForm';
-
-import { ScrollArea, Tabs } from '@mantine/core';
-import './PatientHeader.css';
-import './PatientPage.css';
 
 export function PlanDefinitionPage(): JSX.Element {
   const navigate = useNavigate();
@@ -23,16 +20,15 @@ export function PlanDefinitionPage(): JSX.Element {
   function onSubmit(newResource: PlanDefinition): void {
     medplum
       .updateResource(newResource)
-      .then(() => toast.success('Success'))
-      .catch((err) => toast.error(normalizeErrorString(err)));
+      .then(() => showNotification({ color: 'green', message: 'Success' }))
+      .catch((err) => showNotification({ color: 'red', message: normalizeErrorString(err) }));
   }
 
   return (
     <Tabs value={tab || defaultTab} onChange={(newTab) => navigate(`/PlanDefinition/${id}/${newTab}`)}>
       <ScrollArea>
-        <div className="medplum-patient-header">
-          <ResourceAvatar alt="C P" />
-          <div className="medplum-patient-header-details">
+        <div>
+          <div>
             <div>
               <strong>Title:</strong> {planDefinition.title}
             </div>

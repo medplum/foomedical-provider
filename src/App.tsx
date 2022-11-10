@@ -1,9 +1,7 @@
 import { AppShell } from '@mantine/core';
-import { UserConfiguration } from '@medplum/fhirtypes';
 import { ErrorBoundary, useMedplum } from '@medplum/react';
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Slide, ToastContainer } from 'react-toastify';
 import { HeaderBar } from './components/HeaderBar';
 import { Loading } from './components/Loading';
 import { CarePlansList } from './pages/CarePlansList';
@@ -23,8 +21,6 @@ import { SchedulePage } from './pages/SchedulePage';
 import { SignInPage } from './pages/SignInPage';
 import { TaskPage } from './pages/TaskPage';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 export function App(): JSX.Element | null {
   const medplum = useMedplum();
 
@@ -35,44 +31,33 @@ export function App(): JSX.Element | null {
   const profile = medplum.getProfile();
 
   return (
-    <>
-      <ToastContainer
-        position="top-right"
-        transition={Slide}
-        autoClose={3000}
-        hideProgressBar
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <AppShell fixed={true} header={profile && <HeaderBar />}>
-        <ErrorBoundary>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path="/" element={profile ? <HomePage /> : <LandingPage />} />
-              <Route path="/signin" element={<SignInPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/patients" element={<PatientsList />} />
-              <Route path="/reports" element={<ReportsPage />} />
-              <Route path="/visits" element={<SchedulePage />} />
-              <Route path="/forms" element={<FormsList />} />
-              <Route path="/careplans" element={<CarePlansList />} />
-              <Route path="/Patient/:id/:tab/:resourceId" element={<PatientPage />} />
-              <Route path="/Patient/:id/:tab" element={<PatientPage />} />
-              <Route path="/Patient/:id" element={<PatientPage />} />
-              <Route path="/PlanDefinition/:id/:tab" element={<PlanDefinitionPage />} />
-              <Route path="/PlanDefinition/:id" element={<PlanDefinitionPage />} />
-              <Route path="/Questionnaire/:id/:tab" element={<QuestionnairePage />} />
-              <Route path="/Questionnaire/:id" element={<QuestionnairePage />} />
-              <Route path="/Task/:id" element={<TaskPage />} />
-              <Route path="/:resourceType" element={<ResourceSearchPage />} />
-              <Route path="/:resourceType/new" element={<CreateResourcePage />} />
-              <Route path="/:resourceType/:id" element={<ResourcePage />} />
-              <Route path="/:resourceType/:id/:tab" element={<ResourcePage />} />
-            </Routes>
-          </Suspense>
-        </ErrorBoundary>
-      </AppShell>
-    </>
+    <AppShell fixed={true} header={profile && <HeaderBar />}>
+      <ErrorBoundary>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={profile ? <HomePage /> : <LandingPage />} />
+            <Route path="/signin" element={<SignInPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/patients" element={<PatientsList />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/visits" element={<SchedulePage />} />
+            <Route path="/forms" element={<FormsList />} />
+            <Route path="/careplans" element={<CarePlansList />} />
+            <Route path="/Patient/:id/:tab/:resourceId" element={<PatientPage />} />
+            <Route path="/Patient/:id/:tab" element={<PatientPage />} />
+            <Route path="/Patient/:id" element={<PatientPage />} />
+            <Route path="/PlanDefinition/:id/:tab" element={<PlanDefinitionPage />} />
+            <Route path="/PlanDefinition/:id" element={<PlanDefinitionPage />} />
+            <Route path="/Questionnaire/:id/:tab" element={<QuestionnairePage />} />
+            <Route path="/Questionnaire/:id" element={<QuestionnairePage />} />
+            <Route path="/Task/:id" element={<TaskPage />} />
+            <Route path="/:resourceType" element={<ResourceSearchPage />} />
+            <Route path="/:resourceType/new" element={<CreateResourcePage />} />
+            <Route path="/:resourceType/:id" element={<ResourcePage />} />
+            <Route path="/:resourceType/:id/:tab" element={<ResourcePage />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
+    </AppShell>
   );
 }

@@ -1,13 +1,10 @@
 import { Paper, ScrollArea, Tabs } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { formatDateTime, normalizeErrorString } from '@medplum/core';
 import { Questionnaire } from '@medplum/fhirtypes';
 import { Document, QuestionnaireBuilder, QuestionnaireForm, useMedplum } from '@medplum/react';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
-import './PatientHeader.css';
-import './PatientPage.css';
 
 export function QuestionnairePage(): JSX.Element {
   const navigate = useNavigate();
@@ -22,16 +19,16 @@ export function QuestionnairePage(): JSX.Element {
   function onSubmit(newResource: Questionnaire): void {
     medplum
       .updateResource(newResource)
-      .then(() => toast.success('Success'))
-      .catch((err) => toast.error(normalizeErrorString(err)));
+      .then(() => showNotification({ color: 'green', message: 'Success' }))
+      .catch((err) => showNotification({ color: 'red', message: normalizeErrorString(err) }));
   }
 
   return (
     <Tabs value={tab || defaultTab} onTabChange={(newTab) => navigate(`/Questionnaire/${id}/${newTab}`)}>
       <Paper>
         <ScrollArea>
-          <div className="medplum-patient-header">
-            <div className="medplum-patient-header-details">
+          <div>
+            <div>
               <div>
                 <strong>Title:</strong> {questionnaire.title}
               </div>

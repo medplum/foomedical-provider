@@ -4,8 +4,6 @@ import { HumanName, Patient, Reference } from '@medplum/fhirtypes';
 import { ResourceAvatar, useResource } from '@medplum/react';
 import React from 'react';
 
-import './PatientHeader.css';
-
 export interface PatientHeaderProps {
   patient: Patient | Reference<Patient>;
 }
@@ -23,9 +21,9 @@ export function PatientHeader(props: PatientHeaderProps): JSX.Element | null {
 
   return (
     <ScrollArea>
-      <div className="medplum-patient-header">
+      <div>
         <ResourceAvatar value={patient} color={getDefaultColor(patient)} />
-        <div className="medplum-patient-header-details">
+        <div>
           <div>
             <strong>Name:</strong> {formatHumanName(name)}
           </div>

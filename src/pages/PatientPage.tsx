@@ -1,5 +1,5 @@
 import { Accordion, Button, Group, Paper, ScrollArea, Tabs, Text } from '@mantine/core';
-import { formatDateTime, getPropertyDisplayName, normalizeErrorString } from '@medplum/core';
+import { formatDateTime, getPropertyDisplayName } from '@medplum/core';
 import {
   Appointment,
   CodeableConcept,
@@ -26,9 +26,6 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Loading } from '../components/Loading';
 import { PatientHeader } from './PatientHeader';
 import { TaskHeader } from './TaskHeader';
-import { toast } from 'react-toastify';
-
-import './PatientPage.css';
 
 interface PatientGraphQLResponse {
   data: {

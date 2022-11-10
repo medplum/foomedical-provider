@@ -1,9 +1,9 @@
 import { Button, Modal } from '@mantine/core';
-import { createReference } from '@medplum/core';
+import { showNotification } from '@mantine/notifications';
+import { createReference, normalizeErrorString } from '@medplum/core';
 import { Practitioner, Resource, Task } from '@medplum/fhirtypes';
 import { Form, ResourceInput, useMedplum } from '@medplum/react';
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
 
 export interface ReassignDialogProps {
   task?: Task;
@@ -24,9 +24,9 @@ export function ReassignDialog(props: ReassignDialogProps): JSX.Element | null {
         ...(props.task as Task),
         owner: createReference(assignee as Practitioner),
       })
-      .then(() => toast.success('Task reassigned'))
+      .then(() => showNotification({ color: 'green', message: 'Task reassigned' }))
       .then(() => props.onOk())
-      .catch((err) => toast.error(err.message));
+      .catch((err) => showNotification({ color: 'red', message: normalizeErrorString(err) }));
   }
 
   return (

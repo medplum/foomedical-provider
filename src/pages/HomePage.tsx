@@ -1,4 +1,4 @@
-import { Button, Group } from '@mantine/core';
+import { Button, Group, Table } from '@mantine/core';
 import { formatGivenName } from '@medplum/core';
 import { HumanName, Patient, Practitioner, Reference, Task } from '@medplum/fhirtypes';
 import { Document, ResourceBadge, StatusBadge, useMedplum, useMedplumProfile } from '@medplum/react';
@@ -6,8 +6,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReassignDialog } from './ReassignDialog';
 import { getTaskActions, getTaskType } from './utils';
-
-import './HomePage.css';
 
 export function HomePage(): JSX.Element {
   const navigate = useNavigate();
@@ -20,7 +18,7 @@ export function HomePage(): JSX.Element {
     <>
       <Document width={1200}>
         <h1>Welcome {formatGivenName(profile.name?.[0] as HumanName)}</h1>
-        <table className="foo-table">
+        <Table>
           <tbody>
             {tasks.map((task, taskIndex) => (
               <tr key={task.id}>
@@ -55,7 +53,7 @@ export function HomePage(): JSX.Element {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </Document>
       <ReassignDialog
         task={reassignTask}
