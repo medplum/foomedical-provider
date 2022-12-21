@@ -31,13 +31,13 @@ describe('SignInPage', () => {
     });
   });
 
-  test('Renders', async () => {
+  test('Renders a sign in button', async () => {
     setup();
 
     expect(screen.getByRole('button', { name: 'Sign in' })).toBeInTheDocument();
   });
 
-  test('Success', async () => {
+  test('Successfully fires sign in form events', async () => {
     setup();
 
     await act(async () => {

@@ -5,5 +5,8 @@
   },
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
   "testMatch": ["**/src/**/*.test.ts", "**/src/**/*.test.tsx"],
-  "setupFilesAfterEnv": ["./src/test.setup.ts"]
+  "setupFilesAfterEnv": ["./src/test.setup.ts"],
+  "coverageDirectory": "coverage",
+  "coverageReporters": ["lcov", "json", "text"],
+  "collectCoverageFrom": ["**/src/**/*"]
 }
